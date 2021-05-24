@@ -5,20 +5,20 @@
       <div class="text-center">
         <h1 class="text-xl">Checklist</h1>
               <!-- completed task -->
-      <div class="py-2">
-        <span>{{ incomplete }}/{{tasks.length}} </span>
+      <div>
+        <span class="text-gray-400">{{ incomplete }}/{{tasks.length}} </span>
       </div>
       </div>
       <!-- form -->
-      <div class="relative mb-8">
+      <div class="relative mb-4">
 
         <input v-model="addNewTask"
           @keyup.enter="addTask" class="p-2 rounded w-full h-10 text-current bg-gray-50 text-gray-500	border border-solid border-opacity-0 focus:border-blue-500 focus:outline-none " type="text" placeholder="New Task" />
-        <button @click="addTask" class="absolute top-2 right-3 focus:outline-none text-xl text-green-400"><i class="fas fa-plus"></i></button>
+        <button @click="addTask" class="absolute top-2 right-3 focus:outline-none text-xl text-black"><i class="fas fa-plus"></i></button>
       </div>
       <!-- task lists -->
       <div class="py-2">
-        <ul>
+        <ul class="grid grid-cols-1 divide-y divide-gray-100">
           <task-item
             v-bind:task="task"
             v-for="(task, index) in tasks"
@@ -30,9 +30,9 @@
         </ul>
       </div>
       <!-- buttons -->
-      <div>
-        <button class="w-full p-2 rounded-xl text-white	my-2 focus:outline-none hover:bg-black bg-green-400"   @click=" tasks = tasks.filter(completed)">Clear completed</button>
-        <button class=" w-full p-2 rounded-xl text-white my-2 focus:outline-none hover:bg-black bg-green-400"  @click="tasks =[]">Clear all</button>
+      <div >
+        <button class="w-full p-2 rounded-xl text-white	m-2 focus:outline-none hover:bg-green-400 bg-black"   @click=" tasks = tasks.filter(inProgress)">Clear completed</button>
+        <button class="w-full  p-2 rounded-xl text-white m-2 focus:outline-none hover:bg-green-400 bg-black "  @click="tasks =[]">Clear all</button>
       </div>
 
     </div>
@@ -75,6 +75,9 @@ computed: {
     },
     completed(task) {
       return this.isCompleted(task);
+    },
+    inProgress(task) {
+      return !this.isCompleted(task);
     },
     isCompleted(task) {
       return task.completed;
